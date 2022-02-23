@@ -11,6 +11,7 @@ module.exports = {
           name: "testuser",
           email: "test@test.com",
           password: bcrypt.hashSync("test1234", SALT_ROUNDS),
+          isArtist: true,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -18,6 +19,23 @@ module.exports = {
           name: "dummy",
           email: "a@a.com",
           password: bcrypt.hashSync("a", SALT_ROUNDS),
+          isArtist: false,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          name: "ge",
+          email: "g@g.com",
+          isArtist: true,
+          password: bcrypt.hashSync("1234", SALT_ROUNDS),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          name: "ca",
+          email: "ca@ca.com",
+          isArtist: false,
+          password: bcrypt.hashSync("1234", SALT_ROUNDS),
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -25,7 +43,6 @@ module.exports = {
       {}
     );
   },
-
   down: async (queryInterface, Sequelize) => {
     await queryInterface.bulkDelete("users", null, {});
   },

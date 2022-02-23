@@ -9,7 +9,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      user.hasMany(models.artwork, { foreignKey: "userId" });
       // define association here
+      //user has many artwork
     }
   }
   user.init(
@@ -26,6 +28,9 @@ module.exports = (sequelize, DataTypes) => {
       password: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+      isArtist: {
+        type: DataTypes.BOOLEAN,
       },
     },
     {
