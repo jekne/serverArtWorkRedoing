@@ -19,7 +19,6 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// create a new story:
 //http -v POST :4000/bids/4 amount=111 email=g@g.com
 
 router.put("/:artworkId", authMiddleware, async (req, res, next) => {
@@ -39,26 +38,46 @@ router.put("/:artworkId", authMiddleware, async (req, res, next) => {
     if (!logged_in_user.email) {
       return res.status(404).send("Need to provided a Email for the Bid");
     }
-    const checkartworkId = await Bid.findByPk(artworkId);
-    if (!checkartworkId) {
-      return res.status(404).send("This Bid id do not belong a valid Artwork");
+    const artworkForBid = await Artwork.findByPk(artworkId, { include: [Bid] });
+    if (!artworkForBid) {
+      return res.status(404).send("This artwork does not exist");
     }
 
     // Get all the bids, check the highest one, if the new one is not higher then that return an error
-    const createBid = await Bid.create({
-      amount,
-      email: logged_in_user.email,
-      artworkId,
-    });
+    // Get all the bids(for this artwork) from the database (.findall)
+    const allTheBidsFromThisArtwork = artworkForBid.bids;
 
-    if (!createBid) {
-      return res.status(404).send("Something get wrong");
+    // You now have array of all the bids
+    // Map over every 'Bid object'into the bid amoun bids.map(bid => bid.amount), you now have an array of amounts (numbers)
+    const bidAmounts = allTheBidsFromThisArtwork.map((bid) => {
+      return bid.amount;
+    });
+    // console.log(bidAmounts);
+    // console.log(Math.max(...[1, 2, 3, 4]));
+    // res.send("okay!");
+
+    // // to get the maximum value out of that list, you can use Math.max(...array)
+    const getTheHigherBid = Math.max(...bidAmounts);
+    console.log("my higher bid", getTheHigherBid);
+    // // check if the current bid is higher then the result of Math.max
+    if (amount < getTheHigherBid) {
+      res.status(400).send("THE BID NEED TO BE GREATER THAN THE LAST VALUE!!!");
+    } else {
+      try {
+        const createBid = await Bid.create({
+          amount,
+          email: logged_in_user.email,
+          artworkId,
+        });
+        return res.send({
+          message: `The new Bid with the artworkId ${artworkId} and with the amount ${amount} was created`,
+          bid: createBid,
+        });
+      } catch (error) {
+        console.log(error);
+        res.status(500).send("Something went wrong");
+      }
     }
-
-    return res.status(200).send({
-      message: `The new Bid with the artworkI ${artworkId} and whit the amount ${amount}  was create`,
-      createBid,
-    });
   } catch (e) {
     console.log(e);
     next();

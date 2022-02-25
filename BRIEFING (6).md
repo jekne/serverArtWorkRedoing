@@ -169,14 +169,14 @@ You will be provided with a wireframe that shows an overview of the app along wi
 - We do not keep track of who gave a heart to the artworks, just the amount of hearts the artwork has
 
 | Criteria                                                                                     | Points |
-| -------------------------------------------------------------------------------------------- | ------ |
-| On the artwork's detail page we see a button with `give heart`                               | 1      |
-| When the `give heart` button is clicked the number of hearts changes on the page             | 1      |
-| Clicking the `give heart` button sends a PATCH request to the server                         | 1      |
-| Clicking the `give heart` button updates the `hearts` property of an artwork in the database | 1      |
-| The number of hearts an artwork has is also updated in the list of artworks on `/`           | 1      |
+| -------------------------------------------------------------------------------------------- | ------ | --- |
+| On the artwork's detail page we see a button with `give heart`                               | 1 ok   |
+| When the `give heart` button is clicked the number of hearts changes on the page             | 1 ok   |
+| Clicking the `give heart` button sends a PATCH request to the server                         | 1 ok   |
+| Clicking the `give heart` button updates the `hearts` property of an artwork in the database | 1 ok   |
+| The number of hearts an artwork has is also updated in the list of artworks on `/`           | 1 ok   |
 | You have to refresh to see the number of hearts update                                       | -1     |
-| Total                                                                                        | 5      |
+| Total                                                                                        | 5      | 5   |
 
 ### 4. As a user interested in buying people's art, I want to be able to make a bid, so I can show my interest in buying an artwork
 
@@ -189,15 +189,15 @@ You will be provided with a wireframe that shows an overview of the app along wi
 
 | 4. Criteria - Bidding                                                                           | Points |
 | ----------------------------------------------------------------------------------------------- | ------ |
-| When a user is logged in we can see an number input for amount and button to `Bid`              | 1      |
-| When the `Bid` button is pressed, it makes a POST request to the server to create a new `Bid`   | 2      |
-| The bid created in the database has the correct `artworkId`                                     | 1      |
+| When a user is logged in we can see an number input for amount and button to `Bid`              | 1 ok   |
+| When the `Bid` button is pressed, it makes a POST request to the server to create a new `Bid`   | 2 ok   |
+| The bid created in the database has the correct `artworkId`                                     | 1 ok   |
 | The new bid can be seen on the page without refreshing                                          | 2      |
-| An Authorization header is set in the request                                                   | 1      |
-| The auth middleware is used on the server side to authorize the request                         | 1      |
-| The minimum value of the input for amount in the frontend is the highest bid amount + 1         | 1      |
-| If there are no bids yet the minimum value is the `minimumBid` value from the artwork           | 2      |
-| The backend validates that the new bid is the highest bid so far uses correct HTTP codes if not | 2      |
+| An Authorization header is set in the request                                                   | 1 ok   |
+| The auth middleware is used on the server side to authorize the request                         | 1 ok   |
+| The minimum value of the input for amount in the frontend is the highest bid amount + 1         | 1 ok   |
+| If there are no bids yet the minimum value is the `minimumBid` value from the artwork           | 2 ok   |
+| The backend validates that the new bid is the highest bid so far uses correct HTTP codes if not | 2 ok   |
 | Total                                                                                           | 13     |
 
 ### 5. As an artist I want to be able to post an artwork, so I can make money with my art
@@ -208,17 +208,17 @@ You will be provided with a wireframe that shows an overview of the app along wi
 - This leads to a form where you can post an artwork
 
 | Criteria                                                                | Points |
-| ----------------------------------------------------------------------- | ------ |
-| There is a link with `Start an auction` in the navbar                   | 0.5    |
-| A user can only see this link when you are logged in and is an Artist   | 1.5    |
-| Clicking `Start an auction` links to a page with a form                 | 0.5    |
-| The form contains inputs for title, minimum bid & imageUrl              | 0.5    |
-| When the form is submitted a POST request is sent to the server         | 1      |
-| An Authorization header is set in the request                           | 1      |
-| The auth middleware is used on the server side to authorize the request | 1      |
-| An artwork is created with the correct data and `userId`                | 2      |
-| `userId` is not sent in the body of the request                         | 1      |
-| The user sees a success message if the artwork was posted successfully  | 2      |
+| ----------------------------------------------------------------------- | ------ | ----- |
+| There is a link with `Start an auction` in the navbar                   | 0.5 ok |
+| A user can only see this link when you are logged in and is an Artist   | 1.5 ok |
+| Clicking `Start an auction` links to a page with a form                 | 0.5 ok |
+| The form contains inputs for title, minimum bid & imageUrl              | 0.5 ok |
+| When the form is submitted a POST request is sent to the server         | 1 ok   |
+| An Authorization header is set in the request                           | 1 ok   |
+| The auth middleware is used on the server side to authorize the request | 1 ok   |
+| An artwork is created with the correct data and `userId`                | 2 ok   |
+| `userId` is not sent in the body of the request                         | 1 ok   | ????? |
+| The user sees a success message if the artwork was posted successfully  | 2 ok   |
 | The success message is an alert, confirm or prompt popup or console.log | -1     |
 | Total                                                                   | 11     |
 
@@ -231,13 +231,13 @@ You will be provided with a wireframe that shows an overview of the app along wi
 - We will also have to write a migration to add a column `isArtist` to our table
 
 | Criteria                                                                           | Points |
-| ---------------------------------------------------------------------------------- | ------ |
-| A separate migration is created to add a column `isArtist` to our users table      | 2      |
-| A checkbox is added to the signup form                                             | 1      |
-| The `signUp` action also sends a value for `isArtist` when posting to the server   | 1      |
-| When the checkbox is checked on signup, the user created has `isArtist: true`      | 2      |
-| When the checkbox is not checked on signup, the user created has `isArtist: false` | 1      |
-| Total                                                                              | 7      |
+| ---------------------------------------------------------------------------------- | ------ | --- |
+| A separate migration is created to add a column `isArtist` to our users table      | 2 ok   |
+| A checkbox is added to the signup form                                             | 1 ok   |
+| The `signUp` action also sends a value for `isArtist` when posting to the server   | 1 ok   |
+| When the checkbox is checked on signup, the user created has `isArtist: true`      | 2 ok   |
+| When the checkbox is not checked on signup, the user created has `isArtist: false` | 1 ok   |
+| Total                                                                              | 7 7    | 7   |
 
 ### 7. Finishing up
 
